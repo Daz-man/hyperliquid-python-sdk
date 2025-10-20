@@ -11,7 +11,7 @@ COPY pyproject.toml poetry.lock /app/
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     mv /root/.local/bin/poetry /usr/local/bin/poetry
 
-# Garantir que o poetry esteja instalado corretamente
+# Garantir que o Poetry esteja instalado corretamente
 RUN poetry --version
 
 # Instalar as dependências do projeto usando Poetry
