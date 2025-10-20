@@ -4,27 +4,25 @@ FROM python:3.10-slim
 # Defina um diretório de trabalho no contêiner
 WORKDIR /app
 
-# Copie o arquivo poetry.lock e pyproject.toml para o contêiner
-COPY pyproject.toml poetry.lock /app/
-
-# Instalar o Poetry
+# Instalar o Poetry (se necessário para o projeto)
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     mv /root/.local/bin/poetry /usr/local/bin/poetry
 
-# Garantir que o Poetry esteja instalado corretamente
-RUN poetry --version
-
-# Instalar as dependências do projeto usando Poetry
+# Instalar dependências do projeto
+COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-dev --no-interaction --no-ansi
 
-# Copie os arquivos restantes do projeto
+# Copiar o código do projeto
 COPY . /app/
 
-# Defina a variável de ambiente para permitir a execução sem o virtualenv
+# Definir variáveis de ambiente (se necessário para seu projeto)
 ENV POETRY_VIRTUALENVS_CREATE=false
 
-# Exponha a porta em que a aplicação estará rodando (ajuste conforme necessário)
-EXPOSE 8000
+# Instalar o SDK Hyperliquid
+RUN pip install hyperliquid-python-sdk
 
-# Defina o comando para rodar a aplicação (ajuste conforme necessário)
-CMD ["python", "app.py"]
+# Expor a porta necessária (se estiver executando um servidor)
+EXPOSE 5000
+
+# Defina o comando para rodar o SDK (ou exemplo de uso do SDK)
+CMD ["python", "examples/basic_order.py"]
