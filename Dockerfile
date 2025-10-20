@@ -10,9 +10,6 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # Criar um link simbólico para garantir que o Poetry seja acessível globalmente
 RUN ln -s /root/.local/bin/poetry /usr/local/bin/poetry
 
-# Garantir que o Poetry esteja instalado corretamente
-RUN poetry --version
-
 # Defina um diretório de trabalho no contêiner
 WORKDIR /app
 
