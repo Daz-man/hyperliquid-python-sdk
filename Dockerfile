@@ -19,7 +19,8 @@ WORKDIR /app
 # Copiar os arquivos de dependências
 COPY pyproject.toml poetry.lock /app/
 
-# Instalar dependências do projeto com o Poetry
+# Instalar dependências do projeto com o Poetry (sem --no-dev)
+RUN poetry cache clear --all pypi
 RUN poetry install --no-interaction --no-ansi
 
 # Copiar o código do projeto para o contêiner
