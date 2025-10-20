@@ -23,4 +23,8 @@ COPY . /app/
 # Defina a variável de ambiente para permitir a execução sem o virtualenv
 ENV POETRY_VIRTUALENVS_CREATE=false
 
-# Exponha a porta em que a aplicação estará rodando (ajuste conforme nec
+# Exponha a porta em que a aplicação estará rodando (ajuste conforme necessário)
+EXPOSE 8000
+
+# Defina o comando para rodar a aplicação (ajuste conforme necessário)
+CMD ["python", "app.py"]
