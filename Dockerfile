@@ -10,13 +10,16 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # Criar um link simbólico para garantir que o Poetry seja acessível globalmente
 RUN ln -s /root/.local/bin/poetry /usr/local/bin/poetry
 
+# Verificar se o Poetry foi instalado corretamente
+RUN poetry --version
+
 # Defina um diretório de trabalho no contêiner
 WORKDIR /app
 
 # Copiar os arquivos de dependências
 COPY pyproject.toml poetry.lock /app/
 
-# Instalar dependências do projeto com o Poetry (sem --no-dev)
+# Limpar o cache do Poetry e instalar dependências do projeto
 RUN poetry cache clear --all pypi
 RUN poetry install --no-interaction --no-ansi
 
